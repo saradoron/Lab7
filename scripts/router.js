@@ -41,7 +41,7 @@ router.setState = function(state, entry={}) {
   if(state == "home"){
     body.removeAttribute("class");
     header.innerHTML = "Journal Entries";
-    window.history.pushState({}, "", "https://saradoron.github.io/Lab7/");
+    window.history.pushState({}, "", '');
   }
   else if(state == "entry"){
     let entryNum = 0;
@@ -56,7 +56,7 @@ router.setState = function(state, entry={}) {
     header.innerHTML = "Entry " + entryNum; 
     body.removeAttribute("class");
     body.classList.add("single-entry");
-    window.history.pushState({}, "", 'https://saradoron.github.io/Lab7/#entry' + entryNum);
+    window.history.pushState({}, "", '#entry' + entryNum);
     document.querySelector('entry-page').remove();
 
     let entryPage = document.createElement('entry-page');
@@ -66,7 +66,7 @@ router.setState = function(state, entry={}) {
   else if(state == "settings"){
     body.removeAttribute("class");
     body.classList.add("settings");
-    window.history.pushState({}, "", 'https://saradoron.github.io/Lab7/#settings');
+    window.history.pushState({}, "", '#settings');
     header.innerHTML = "Settings";
   }
 }
