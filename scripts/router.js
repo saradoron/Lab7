@@ -5,7 +5,7 @@ export const router = {};
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
-router.setState = function(nextState, entryNum, entry, back) {
+router.setState = function(state, entry={}) {
   /**
    * - There are three states that your SPA app will have
    *    1. The home page
@@ -35,29 +35,38 @@ router.setState = function(nextState, entryNum, entry, back) {
    *    1. You may add as many helper functions in this file as you like
    *    2. You may modify the parameters of setState() as much as you like
    */
-  if(!back){
-    history.pushState({'nextState': nextState, 'entryNum': entryNum, 'entry': entry}, "");
+  let body = document.querySelector('body');
+  let header = document.querySelector('header h1');
+
+  if(state == "home"){
+    body.removeAttribute("class");
+    header.innerHTML = "Journal Entries";
+    window.history.pushState({}, "", "https://saradoron.github.io/Lab7/");
   }
-  if(nextState == "main"){
-    body.getElementsByTagName('h1')[0].innerText = "Journal Entries";
-    document.getElementsByTagName("body")[0].classList.remove("settings");
-    document.getElementsByTagName("body")[0].classList.remove("single-entry");
+  else if(state == "entry"){
+    let entryNum = 0;
+    let entries = document.querySelectorAll('journal-entry');
+
+    for(let i = 0; i < entries.length; i++){
+      if(entries[i].entry.title == entry.title && entries[i].entry.date == entry.date && entries[i].entry.content == entry.content){
+        entryNum = i+1;
+      }
+    }
+
+    header.innerHTML = "Entry " + entryNum; 
+    body.removeAttribute("class");
+    body.classList.add("single-entry");
+    window.history.pushState({}, "", 'https://saradoron.github.io/Lab7/#entry' + entryNum);
+    document.querySelector('entry-page').remove();
+
+    let entryPage = document.createElement('entry-page');
+    entryPage.entry = entry; 
+    document.querySelector('body').appendChild(entryPage);
   }
-  else if(nextState == "settings"){
-    body.getElementsByTagName('h1')[0].innerText = "Settings";
-    document.getElementsByTagName("body")[0].classList.remove("single-entry");
-    document.getElementsByTagName("body")[0].classList.add("settings");
+  else if(state == "settings"){
+    body.removeAttribute("class");
+    body.classList.add("settings");
+    window.history.pushState({}, "", 'https://saradoron.github.io/Lab7/#settings');
+    header.innerHTML = "Settings";
   }
-  else if(nextState == "single-entry"){
-    document.getElementsByTagName('entry-page')[0].remove();
-    
-    document.querySelector('body').appendChild(document.createElement('entry-page'));
-    
-    document.createElement('entry-page').entry = document.createElement('entry-page')
-    
-    body.getElementsByTagName('h1')[0].innerText = "Entry " + entryNum;
-    document.getElementsByTagName("body")[0].classList.remove("settings");
-    document.getElementsByTagName("body")[0].classList.add("single-entry");
-  }
-  
 }
