@@ -24,10 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         let newPost = document.createElement('journal-entry');
         newPost.entry = entry;
-
         newPost.addEventListener('click', () => {
           setState('entryPage', entry);
-        });
+        })
         document.querySelector('main').appendChild(newPost);
       });
     });
@@ -43,4 +42,4 @@ document.querySelector("header h1").addEventListener('click', () => {
 
 window.onpopstate = function() {
   setState('mainPage');
-}
+};
