@@ -50,9 +50,9 @@ router.setState = function(state, entry={}) {
      let allEntries = document.querySelectorAll('journal-entry');
  
      for(let i = 0; i < allEntries.length; i++){
-       if(allEntries[i].entry.title == entry.title 
-          && allEntries[i].entry.date == entry.date 
-          && allEntries[i].entry.content == entry.content){
+       if(entry.content == allEntries[i].entry.content 
+          && entry.date == allEntries[i].entry.date 
+          && entry.title == allEntries[i].entry.title ){
          entryNum = i + 1;
        }
      }
