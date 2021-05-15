@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newPost.entry = entry;
 
         newPost.addEventListener('click', () => {
-          setState('entry', entry);
+          setState('entryPage', entry);
         });
         document.querySelector('main').appendChild(newPost);
       });
@@ -34,13 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.querySelector("header img").addEventListener('click', () => {
-  setState('settings');
+  setState('settingsPage');
 });
 
 document.querySelector("header h1").addEventListener('click', () => {
-  setState('home');
+  setState('mainPage');
 });
 
 window.onpopstate = function() {
-  setState('home');
+  setState('mainPage');
 }

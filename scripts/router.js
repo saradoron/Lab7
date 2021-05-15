@@ -35,38 +35,41 @@ router.setState = function(state, entry={}) {
    *    1. You may add as many helper functions in this file as you like
    *    2. You may modify the parameters of setState() as much as you like
    */
-  let body = document.querySelector('body');
-  let header = document.querySelector('header h1');
+   let body = document.querySelector('body');
+   let header = document.querySelector('header h1')
+ 
+   if(state == "mainPage"){
+     window.history.pop
+     body.removeAttribute("class");
+     header.innerHTML = "Journal Entries";
+     window.history.replaceState({}, "",  ' ');
+   } 
+   else if(state == "entryPage"){
+     let entryNum = 0;
 
-  if(state == "home"){
-    body.removeAttribute("class");
-    header.innerHTML = "Journal Entries";
-    window.history.pushState({}, "", '');
-  }
-  else if(state == "entry"){
-    let entryNum = 0;
-    let entries = document.querySelectorAll('journal-entry');
+     let allEntries = document.querySelectorAll('journal-entry');
+ 
+     for(let i = 0; i < allEntries.length; i++){
+       if(allEntries[i].entry.title == entry.title 
+          && allEntries[i].entry.date == entry.date 
+          && allEntries[i].entry.content == entry.content){
+         entryNum = i + 1;
+       }
+     }
 
-    for(let i = 0; i < entries.length; i++){
-      if(entries[i].entry.title == entry.title && entries[i].entry.date == entry.date && entries[i].entry.content == entry.content){
-        entryNum = i+1;
-      }
-    }
-
-    header.innerHTML = "Entry " + entryNum; 
-    body.removeAttribute("class");
-    body.classList.add("single-entry");
-    window.history.pushState({}, "", '#entry' + entryNum);
-    document.querySelector('entry-page').remove();
-
-    let entryPage = document.createElement('entry-page');
-    entryPage.entry = entry; 
-    document.querySelector('body').appendChild(entryPage);
-  }
-  else if(state == "settings"){
-    body.removeAttribute("class");
-    body.classList.add("settings");
-    window.history.pushState({}, "", '#settings');
-    header.innerHTML = "Settings";
-  }
-}
+     header.innerHTML = "Entry " + entryNum;
+     body.removeAttribute("class");
+     body.classList.add("single-entry");
+     window.history.pushState({}, "", window.location.href + '#entry' + entryNum);
+     document.querySelector('entry-page').remove();
+     let entryPage = document.createElement('entry-page');
+     entryPage.entry = entry;
+     document.querySelector('body').appendChild(entryPage);
+   } 
+   else if(state == "settingsPage") {
+     body.removeAttribute("class");
+     body.classList.add("settings");
+     window.history.pushState({}, "",  '#settings');
+     header.innerHTML = "Settings";
+   }
+ }
