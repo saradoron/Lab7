@@ -24,22 +24,49 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         let newPost = document.createElement('journal-entry');
         newPost.entry = entry;
-        newPost.addEventListener('click', () => {
-          setState('entryPage', entry);
-        })
         document.querySelector('main').appendChild(newPost);
+        newPost.addEventListener('click', () => {
+          let entryNumber = 0;
+
+          let allEntries = document.querySelectorAll('journal-entry');
+      
+          for(let i = 0; i < allEntries.length; i++){
+            if(entry.content == allEntries[i].entry.content 
+               && entry.date == allEntries[i].entry.date 
+               && entry.title == allEntries[i].entry.title ){
+                entryNumber = i + 1;
+            }
+          }
+          window.history.pushState({page_id: 1, entry_id: entry}, "entry", "#entry" + entryNumber); 
+          setState(entry); 
+        });
       });
     });
-});
 
-document.querySelector("header img").addEventListener('click', () => {
-  setState('settingsPage');
-});
+    document.querySelector('img').addEventListener('click', ()=> {
+      if (window.location.hash != "#settings"){ 
+        window.history.pushState({page_id: 2}, "setting", "#settings"); 
+        setState(); 
+      }
+    });
 
-document.querySelector("header h1").addEventListener('click', () => {
-  setState('mainPage');
-});
+    document.querySelector('h1').addEventListener('click', ()=> { 
+      if (window.location.hash != ""){ 
+        window.history.pushState({page_id: 0}, "home", window.origin + "/Lab7/");
+        setState(); 
+      }
+    });
 
-window.onpopstate = function() {
-  setState('mainPage');
-};
+    window.addEventListener('popstate', (event)=>{
+      if (event.state == null){ 
+        setState(); 
+        return;
+      }
+      if (event.state.page_id == 1){
+        setState(event.state.entry_id);
+      }
+      else{
+        setState(); 
+      }
+    });
+});

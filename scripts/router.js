@@ -5,7 +5,7 @@ export const router = {};
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
-router.setState = function(state, entry={}) {
+router.setState = function(entry) {
   /**
    * - There are three states that your SPA app will have
    *    1. The home page
@@ -35,41 +35,31 @@ router.setState = function(state, entry={}) {
    *    1. You may add as many helper functions in this file as you like
    *    2. You may modify the parameters of setState() as much as you like
    */
-   let body = document.querySelector('body');
-   let header = document.querySelector('header h1')
- 
-   if(state == "mainPage"){
-     window.history.pop
-     body.removeAttribute("class");
-     header.innerHTML = "Journal Entries";
-     window.history.replaceState({}, "",  ' ');
-   } 
-   else if(state == "entryPage"){
-     let entryNum = 0;
+  if (window.location.hash == ""){ 
+    document.querySelector('body').setAttribute("class", "");  
+    document.querySelector('h1').innerHTML = "Journal Entries"
+  }
+  else if (window.location.hash == "#settings"){
+    document.querySelector('body').setAttribute("class", "settings"); 
+    document.querySelector('h1').innerHTML = "Settings";
+  }
+  else {
+    let entryNumber = 0;
 
-     let allEntries = document.querySelectorAll('journal-entry');
- 
-     for(let i = 0; i < allEntries.length; i++){
-       if(entry.content == allEntries[i].entry.content 
-          && entry.date == allEntries[i].entry.date 
-          && entry.title == allEntries[i].entry.title ){
-         entryNum = i + 1;
-       }
-     }
+    let allEntries = document.querySelectorAll('journal-entry');
 
-     header.innerHTML = "Entry " + entryNum;
-     body.removeAttribute("class");
-     body.classList.add("single-entry");
-     window.history.pushState({}, "", window.location.href + '#entry' + entryNum);
-     document.querySelector('entry-page').remove();
-     let entryPage = document.createElement('entry-page');
-     entryPage.entry = entry;
-     document.querySelector('body').appendChild(entryPage);
-   } 
-   else if(state == "settingsPage") {
-     body.removeAttribute("class");
-     body.classList.add("settings");
-     window.history.pushState({}, "",  '#settings');
-     header.innerHTML = "Settings";
-   }
+    for(let i = 0; i < allEntries.length; i++){
+      if(entry.content == allEntries[i].entry.content 
+         && entry.date == allEntries[i].entry.date 
+         && entry.title == allEntries[i].entry.title ){
+          entryNumber = i + 1;
+      }
+    }
+    document.querySelector('body').setAttribute("class", "single-entry");
+    document.querySelector('h1').innerHTML = "Entry " + entryNumber;
+    document.querySelector('entry-page').remove(); 
+    let entryPage = document.createElement('entry-page'); 
+    document.querySelector('body').appendChild(entryPage); 
+    document.querySelector('entry-page').entry = entry;
+  }
  }
