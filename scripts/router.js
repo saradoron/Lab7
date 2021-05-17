@@ -35,13 +35,13 @@ router.setState = function(entry) {
    *    1. You may add as many helper functions in this file as you like
    *    2. You may modify the parameters of setState() as much as you like
    */
-  if (window.location.hash == ""){ 
-    document.querySelector('header h1').innerHTML = "Journal Entries"
-    document.querySelector('body').setAttribute("class", "");  
-  }
-  else if (window.location.hash == "#settings"){
+   if (window.location.hash == "#settings"){
     document.querySelector('header h1').innerHTML = "Settings";
     document.querySelector('body').setAttribute("class", "settings"); 
+  }
+  else if (window.location.hash == ""){ 
+    document.querySelector('header h1').innerHTML = "Journal Entries"
+    document.querySelector('body').setAttribute("class", "");  
   }
   else {
     let entryNumber = 0;
