@@ -36,12 +36,12 @@ router.setState = function(entry) {
    *    2. You may modify the parameters of setState() as much as you like
    */
   if (window.location.hash == ""){ 
-    document.querySelector('body').setAttribute("class", "");  
     document.querySelector('header h1').innerHTML = "Journal Entries"
+    document.querySelector('body').setAttribute("class", "");  
   }
   else if (window.location.hash == "#settings"){
-    document.querySelector('body').setAttribute("class", "settings"); 
     document.querySelector('header h1').innerHTML = "Settings";
+    document.querySelector('body').setAttribute("class", "settings"); 
   }
   else {
     let entryNumber = 0;
@@ -53,8 +53,8 @@ router.setState = function(entry) {
           entryNumber = i + 1;
       }
     }
-    document.querySelector('body').setAttribute("class", "single-entry");
     document.querySelector('header h1').innerHTML = "Entry " + entryNumber;
+    document.querySelector('body').setAttribute("class", "single-entry");
     document.querySelector('entry-page').remove(); 
     let entryPage = document.createElement('entry-page'); 
     document.querySelector('body').appendChild(entryPage); 

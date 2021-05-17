@@ -41,6 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    window.addEventListener('popstate', (event)=>{
+      if (event.state == null){ 
+        setState(); 
+        return;
+      }
+      if (event.state.page_id == 1){
+        setState(event.state.entry_id);
+      }
+      else{
+        setState(); 
+      }
+    });
+
     document.querySelector('img').addEventListener('click', ()=> {
       if (window.location.hash != "#settings"){ 
         window.history.pushState({page_id: 2}, "settingsPage", "#settings"); 
@@ -51,19 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('header h1').addEventListener('click', ()=> { 
       if (window.location.hash != ""){ 
         window.history.pushState({page_id: 0}, "mainPage", window.origin + "/Lab7/");
-        setState(); 
-      }
-    });
-
-    window.addEventListener('popstate', (event)=>{
-      if (event.state == null){ 
-        setState(); 
-        return;
-      }
-      if (event.state.page_id == 1){
-        setState(event.state.entry_id);
-      }
-      else{
         setState(); 
       }
     });
