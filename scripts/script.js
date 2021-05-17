@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 entryNumber = i + 1;
             }
           }
-          window.history.pushState({page_id: 1, entry_id: entry}, "entry", "#entry" + entryNumber); 
+          window.history.pushState({page_id: 1, entry_id: entry}, "journalEntry", "#entry" + entryNumber); 
           setState(entry); 
         });
       });
@@ -43,14 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('img').addEventListener('click', ()=> {
       if (window.location.hash != "#settings"){ 
-        window.history.pushState({page_id: 2}, "setting", "#settings"); 
+        window.history.pushState({page_id: 2}, "settingsPage", "#settings"); 
         setState(); 
       }
     });
 
     document.querySelector('h1').addEventListener('click', ()=> { 
       if (window.location.hash != ""){ 
-        window.history.pushState({page_id: 0}, "home", window.origin + "/Lab7/");
+        window.history.pushState({page_id: 0}, "mainPage", window.origin + "/Lab7/");
         setState(); 
       }
     });
