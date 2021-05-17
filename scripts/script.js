@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let allEntries = document.querySelectorAll('journal-entry');
       
           for(let i = 0; i < allEntries.length; i++){
-            if(entry.content == allEntries[i].entry.content 
-               && entry.date == allEntries[i].entry.date 
-               && entry.title == allEntries[i].entry.title ){
+            if(entry.title == allEntries[i].entry.title ){
                 entryNumber = i + 1;
             }
           }
