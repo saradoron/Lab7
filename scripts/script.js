@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    document.querySelector('h1').addEventListener('click', ()=> { 
+    document.querySelector('header h1').addEventListener('click', ()=> { 
       if (window.location.hash != ""){ 
         window.history.pushState({page_id: 0}, "mainPage", window.origin + "/Lab7/");
         setState(); 

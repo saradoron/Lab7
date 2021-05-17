@@ -37,11 +37,11 @@ router.setState = function(entry) {
    */
   if (window.location.hash == ""){ 
     document.querySelector('body').setAttribute("class", "");  
-    document.querySelector('h1').innerHTML = "Journal Entries"
+    document.querySelector('header h1').innerHTML = "Journal Entries"
   }
   else if (window.location.hash == "#settings"){
     document.querySelector('body').setAttribute("class", "settings"); 
-    document.querySelector('h1').innerHTML = "Settings";
+    document.querySelector('header h1').innerHTML = "Settings";
   }
   else {
     let entryNumber = 0;
@@ -54,7 +54,7 @@ router.setState = function(entry) {
       }
     }
     document.querySelector('body').setAttribute("class", "single-entry");
-    document.querySelector('h1').innerHTML = "Entry " + entryNumber;
+    document.querySelector('header h1').innerHTML = "Entry " + entryNumber;
     document.querySelector('entry-page').remove(); 
     let entryPage = document.createElement('entry-page'); 
     document.querySelector('body').appendChild(entryPage); 
